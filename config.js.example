@@ -1,0 +1,9 @@
+"use strict";
+
+// You can obtain access tokens e.g. this way: http://dghubble.com/blog/posts/twitter-app-write-access-and-bots/
+module.exports = {
+  consumer_key: TWITTER_APP_KEY,
+  consumer_secret: TWITTER_APP_SECRET,
+  access_token: BOT_ACCESS_TOKEN,
+  access_token_secret: BOT_ACCESS_TOKEN_SECRET
+}

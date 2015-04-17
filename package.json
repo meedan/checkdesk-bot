@@ -1,0 +1,30 @@
+{
+  "name": "checkdesk-bot",
+  "version": "0.1.0",
+  "description": "A bot that converses with Checkdesk users.",
+  "main": "checky.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meedan/checkdesk-bot.git"
+  },
+  "keywords": [
+    "bot",
+    "checkdesk",
+    "twitter"
+  ],
+  "authors": [
+    "Karim Ratib"
+  ],
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/meedan/checkdesk-bot/issues"
+  },
+  "homepage": "https://github.com/meedan/checkdesk-bot",
+  "dependencies": {
+    "twit": "~1.1.12",
+    "underscore": "~1.6.0"
+  }
+}
