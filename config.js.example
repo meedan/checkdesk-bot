@@ -9,5 +9,5 @@ module.exports = {
     access_token: "TWITTER_BOT_ACCESS_TOKEN",
     access_token_secret: "TWITTER_BOT_ACCESS_TOKEN_SECRET"
   },
-  checkdesk_url: "CHECKDESK_ROOT_URL_INCLUDING_LANGUAGE_PATH"
+  webhook: "CALLBACK_URL"
 }
