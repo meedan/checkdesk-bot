@@ -1,7 +1,6 @@
 "use strict";
 
 var twit = require('twit');
-var config = require('./config.js');
 var _ = require('underscore');
 var request = require('superagent');
 
@@ -51,4 +50,4 @@ Checky.prototype.tweetReply = function(reply, tweet) {
   });
 }
 
-var checky = new Checky(config);
+module.exports = Checky;
