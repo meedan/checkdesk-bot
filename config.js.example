@@ -9,5 +9,8 @@ module.exports = {
     access_token: "TWITTER_BOT_ACCESS_TOKEN",
     access_token_secret: "TWITTER_BOT_ACCESS_TOKEN_SECRET"
   },
-  webhook: "CALLBACK_URL"
+  webhook: {
+    callback_url: "CALLBACK_URL",
+    secret_token: "SECRET_TOKEN_SHARED_WITH_WEBHOOK_PROVIDER"
+  }
 }

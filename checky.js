@@ -3,6 +3,7 @@
 var twit = require('twit');
 var _ = require('underscore');
 var request = require('superagent');
+var crypto = require('crypto');
 
 function Checky(config) {
   this.config = config;
@@ -25,7 +26,8 @@ Checky.prototype.sendToWebhook = function(tweet) {
   // TODO log
   // TODO security
   request
-    .post(this.config.webhook)
+    .post(this.config.webhook.callback_url)
+    .set('X-Checky-Signature', this.computeSignature(tweet))
     .send({ tweet: tweet })
     .end(function(err, res) {
       if (res.body.reply) {
@@ -33,8 +35,15 @@ Checky.prototype.sendToWebhook = function(tweet) {
       }
       else {
         // TODO error handling
+        console.log(err);
+        console.log(res.body);
       }
     });
+}
+
+Checky.prototype.computeSignature = function(tweet) {
+  // @see https://developer.github.com/webhooks/securing/
+  return 'sha1=' + crypto.createHmac('sha1', this.config.webhook.secret_token).update(JSON.stringify({ tweet: tweet }), 'utf8').digest('hex');
 }
 
 Checky.prototype.tweetReply = function(reply, tweet) {
