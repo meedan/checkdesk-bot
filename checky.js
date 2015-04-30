@@ -9,8 +9,8 @@ function Checky(config) {
   this.config = config;
   this.t = new twit(this.config.twitter);
   this.stream = this.t.stream('user', { with: 'user' });
-  // TODO also detect direct messages
   this.stream.on('tweet', this.processTweet.bind(this));
+  this.stream.on('direct_message', this.processDirectMessage.bind(this));
 }
 
 Checky.prototype.processTweet = function(tweet) {
@@ -21,10 +21,17 @@ Checky.prototype.processTweet = function(tweet) {
   this.sendToWebhook(tweet);
 }
 
+Checky.prototype.processDirectMessage = function(dm) {
+  var tweet = dm.direct_message;
+  if (tweet.sender_screen_name === this.config.twitter.screen_name) return;
+  if (tweet.recipient_screen_name !== this.config.twitter.screen_name) return;
+  // Simulate a regular tweet to avoid messing up the code too badly.
+  tweet.user = tweet.sender;
+  this.sendToWebhook(tweet);
+}
+
 Checky.prototype.sendToWebhook = function(tweet) {
   var self = this;
-  // TODO log
-  // TODO security
   request
     .post(this.config.webhook.callback_url)
     .set('X-Checky-Signature', this.computeSignature(tweet))
@@ -34,7 +41,7 @@ Checky.prototype.sendToWebhook = function(tweet) {
         self.tweetReply(res.body.reply, tweet);
       }
       else {
-        // TODO error handling
+        // TODO log and error handling
         console.log(err);
         console.log(res.body);
       }
@@ -48,15 +55,30 @@ Checky.prototype.computeSignature = function(tweet) {
 
 Checky.prototype.tweetReply = function(reply, tweet) {
   var self = this;
-  var reply_tweet = {
-    status: reply,
-    in_reply_to_status_id: tweet.id_str
-  };
-  this.t.post('statuses/update', reply_tweet, function(err, data, res) {
-    // TODO log and error handling
-    console.log(err);
-    console.log(data);
-  });
+  // Either reply with a tweet or a direct message,
+  // depending on source message.
+  if (typeof(tweet.sender) === 'undefined') {
+    var reply_tweet = {
+      status: reply,
+      in_reply_to_status_id: tweet.id_str
+    };
+    this.t.post('statuses/update', reply_tweet, function(err, data, res) {
+      // TODO log and error handling
+      console.log(err);
+      console.log(data);
+    });
+  }
+  else {
+    var reply_dm = {
+      text: reply,
+      screen_name: tweet.sender_screen_name
+    };
+    this.t.post('direct_messages/new', reply_dm, function(err, data, res) {
+      // TODO log and error handling
+      console.log(err);
+      console.log(data);
+    });
+  }
 }
 
 module.exports = Checky;
