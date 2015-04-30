@@ -7,10 +7,12 @@ var crypto = require('crypto');
 
 function Checky(config) {
   this.config = config;
-  this.t = new twit(this.config.twitter);
-  this.stream = this.t.stream('user', { with: 'user' });
-  this.stream.on('tweet', this.processTweet.bind(this));
-  this.stream.on('direct_message', this.processDirectMessage.bind(this));
+  if (!config.testing) { // TODO replace this with a mock twit object
+    this.t = new twit(this.config.twitter);
+    this.stream = this.t.stream('user', { with: 'user' });
+    this.stream.on('tweet', this.processTweet.bind(this));
+    this.stream.on('direct_message', this.processDirectMessage.bind(this));
+  }
 }
 
 Checky.prototype.processTweet = function(tweet) {
