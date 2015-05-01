@@ -4,7 +4,7 @@
   "description": "A bot that converses with Checkdesk users.",
   "main": "checky.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/intern-client config=tests/intern"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,8 @@
     "twit": "~1.1.12",
     "underscore": "~1.6.0",
     "superagent": "~1.2.0"
+  },
+  "devDependencies": {
+    "intern": "~2.2.2"
   }
 }

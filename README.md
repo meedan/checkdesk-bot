@@ -8,6 +8,7 @@ If the user is known to Checkdesk, submission can be done directly on their beha
 In case the report already exists in Checkdesk, Checky answers with the report status and a link to it.
 
 # Configuration
+- Run `npm install`
 - Create Twitter app with *Read, Write and Access direct messages* access
 - Create Twitter account for bot and allow it to receive direct messages from anyone
 - Authorize bot account for app as per http://dghubble.com/blog/posts/twitter-app-write-access-and-bots/
@@ -17,5 +18,5 @@ In case the report already exists in Checkdesk, Checky answers with the report s
 - Run `node app.js` and send mentions or direct messages to the bot account
 
 # Testing
-- Install [Intern](https://theintern.github.io/) via `npm install intern`
-- Run `intern-client config=tests/intern`
+Testing using [Intern](https://theintern.github.io/)
+- Run `npm test`

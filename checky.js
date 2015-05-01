@@ -10,6 +10,7 @@ function Checky(config) {
   if (!config.testing) { // TODO replace this with a mock twit object
     this.t = new twit(this.config.twitter);
     this.stream = this.t.stream('user', { with: 'user' });
+    //this.stream = this.t.stream('statuses/filter', { track: this.config.twitter.screen_name });
     this.stream.on('tweet', this.processTweet.bind(this));
     this.stream.on('direct_message', this.processDirectMessage.bind(this));
   }
@@ -24,11 +25,12 @@ Checky.prototype.processTweet = function(tweet) {
 }
 
 Checky.prototype.processDirectMessage = function(dm) {
+  // Simulate a regular tweet to avoid messing up the code too badly.
   var tweet = dm.direct_message;
+  tweet.user = tweet.sender;
+  // Only process tweets that the bot did not send and where it is a recipient.
   if (tweet.sender_screen_name === this.config.twitter.screen_name) return;
   if (tweet.recipient_screen_name !== this.config.twitter.screen_name) return;
-  // Simulate a regular tweet to avoid messing up the code too badly.
-  tweet.user = tweet.sender;
   this.sendToWebhook(tweet);
 }
 

@@ -1,8 +1,8 @@
-define(function(require) {
-  var registerSuite = require('intern!object');
-  var assert = require('intern/chai!assert');
-  var Checky = require('intern/dojo/node!../checky.js');
-
+define([
+  'intern!object',
+  'intern/chai!assert',
+  'intern/dojo/node!../checky.js'
+], function(registerSuite, assert, Checky) {
   registerSuite(function () {
     var config = {
       twitter: {
