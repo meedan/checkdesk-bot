@@ -2,9 +2,10 @@
   "name": "checkdesk-bot",
   "version": "0.1.0",
   "description": "A bot that converses with Checkdesk users.",
-  "main": "checky.js",
+  "main": "app.js",
   "scripts": {
-    "test": "node_modules/.bin/intern-client config=tests/intern"
+    "test": "node_modules/.bin/intern-client config=tests/intern",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",

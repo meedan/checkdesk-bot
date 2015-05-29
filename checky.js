@@ -28,7 +28,7 @@ Checky.prototype.processDirectMessage = function(dm) {
   // Simulate a regular tweet to avoid messing up the code too badly.
   var tweet = dm.direct_message;
   tweet.user = tweet.sender;
-  // Only process tweets that the bot did not send and where it is a recipient.
+  // Only process messages that the bot did not send and where it is a recipient.
   if (tweet.sender_screen_name === this.config.twitter.screen_name) return;
   if (tweet.recipient_screen_name !== this.config.twitter.screen_name) return;
   this.sendToWebhook(tweet);
