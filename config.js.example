@@ -11,6 +11,8 @@ module.exports = {
   },
   webhook: {
     callback_url: "CALLBACK_URL",
+    auth_username: "HTTP_AUTH_USERNAME",
+    auth_password: "HTTP_AUTH_PASSWORD",
     secret_token: "SECRET_TOKEN_SHARED_WITH_WEBHOOK_PROVIDER"
   }
 }

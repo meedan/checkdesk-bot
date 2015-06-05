@@ -8,18 +8,12 @@ RUN echo force-unsafe-io > /etc/dpkg/dpkg.cfg.d/02apt-speedup
 
 RUN apt-get update --fix-missing
 RUN apt-get upgrade -y
-
-# standard
-RUN apt-get install --no-install-recommends -qy git ca-certificates vim emacs24-nox screen tree htop curl tig npm
-
-# gnu screen
+RUN apt-get install --no-install-recommends -qy git ca-certificates vim emacs24-nox screen tree htop curl tig npm supervisor
 RUN chmod u+s /usr/bin/screen
 RUN chmod 755 /var/run/screen
 
-# Bundle app source
-COPY . /src
+COPY . /app
+RUN mkdir -p /app/logs
+RUN cd /app; npm install
 
-# Install app dependencies
-RUN cd /src; npm install
-
-CMD ["nodejs", "/src/app.js"]
+CMD ["/usr/bin/supervisord", "-c", "/app/supervisord.conf"]

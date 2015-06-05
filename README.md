@@ -16,3 +16,9 @@ The Checky bot just forwards tweets where it is mentioned and DMs addressed to i
 # Testing
 Testing using [Intern](https://theintern.github.io/)
 - Run `npm test`
+
+# Docker
+- Build using `docker build -t checkdesk-bot .`
+- Run using `docker rm checkdesk-bot && docker run -it --name checkdesk-bot checkdesk-bot`
+- Log into the container using `docker exec -it checkdesk-bot bash`
+- Find out your host's IP using `netstat -nr | grep '^0\.0\.0\.0' | awk '{print $2}'` (from within the container)

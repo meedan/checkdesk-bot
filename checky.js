@@ -39,9 +39,10 @@ Checky.prototype.sendToWebhook = function(tweet) {
   request
     .post(this.config.webhook.callback_url)
     .set('X-Checky-Signature', this.computeSignature(tweet))
+    .auth(this.config.webhook.auth_username || '', this.config.webhook.auth_password || '')
     .send({ tweet: tweet })
     .end(function(err, res) {
-      if (res.body.reply) {
+      if (!err && res.body.reply) {
         self.tweetReply(res.body.reply, tweet);
       }
       else {
