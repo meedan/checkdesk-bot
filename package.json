@@ -27,7 +27,9 @@
   "dependencies": {
     "twit": "~1.1.12",
     "underscore": "~1.6.0",
-    "superagent": "~1.2.0"
+    "superagent": "~1.2.0",
+    "bignum": "~0.10.0",
+    "sleep": "~2.0.0"
   },
   "devDependencies": {
     "intern": "~2.2.2"
