@@ -8,7 +8,7 @@ RUN echo force-unsafe-io > /etc/dpkg/dpkg.cfg.d/02apt-speedup
 
 RUN apt-get update --fix-missing
 RUN apt-get upgrade -y
-RUN apt-get install --no-install-recommends -qy git ca-certificates vim emacs24-nox screen tree htop curl tig npm supervisor
+RUN apt-get install --no-install-recommends -qy git ca-certificates vim screen tree htop curl tig npm supervisor build-essential
 RUN chmod u+s /usr/bin/screen
 RUN chmod 755 /var/run/screen
 
