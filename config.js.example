@@ -14,5 +14,6 @@ module.exports = {
     auth_username: "{{WEBHOOK_AUTH_USERNAME}}",
     auth_password: "{{WEBHOOK_AUTH_PASSWORD}}",
     secret_token: "{{WEBHOOK_SECRET_TOKEN}}"
-  }
+  },
+  since_filepath: "./since"
 }

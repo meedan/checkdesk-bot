@@ -18,7 +18,7 @@ function Checky(config) {
   // If the since file is not there, the bot will catch up from the beginning.
   // You can pre-initialize the file using `echo -n 611293110774030336 > since`
   // where the bignum is the latest tweet to catch up from.
-  if (!this.config.last_filepath) {
+  if (!this.config.since_filepath) {
     this.config.since_filepath = './since';
   }
   this.since_id_str = '0';
@@ -51,7 +51,7 @@ Checky.prototype.processTweet = function(tweet) {
     return;
   }
   if (!_.filter(tweet.entities.user_mentions, function(um) { return um.screen_name === self.config.twitter.screen_name }).length) {
-    console.log('discarding ' + tweet.id_str + ' where bot is not mentioned');   
+    console.log('discarding ' + tweet.id_str + ' where bot is not mentioned');
     return;
   }
 
