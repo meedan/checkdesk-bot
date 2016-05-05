@@ -15,7 +15,8 @@ function Checky(config) {
   // The since file contains the id of the latest tweet to catch up from.
   // The since file is updated at each received tweet.
   // (Same for DMs: tweets and DMs share the same id sequence.)
-  // If the since file is not there, the bot will catch up from the beginning.
+  // If the since file is not there or contains 0, the bot will catch up from the beginning.
+  // If the since file contains -1, the bot will not catch up at all
   // You can pre-initialize the file using `echo -n 611293110774030336 > since`
   // where the bignum is the latest tweet to catch up from.
   if (!this.config.since_filepath) {
@@ -147,8 +148,6 @@ Checky.prototype.updateSince = function(tweet) {
 }
 
 Checky.prototype.catchUp = function() {
-  console.log('catching up since ' + this.since_id_str);
-
   var self = this;
   var parameters = {
     count: 200,
@@ -159,6 +158,13 @@ Checky.prototype.catchUp = function() {
     console.log('catching up from the top in 10 seconds...');
     sleep.sleep(10);
     delete parameters['since_id'];
+  }
+  else if (bignum(this.since_id_str).eq('-1')) {
+    console.log('bypassing catch-up');
+    return;
+  }
+  else {
+    console.log('catching up since ' + this.since_id_str);
   }
   this.t.get('statuses/mentions_timeline', parameters, function(err, data, response) {
     if (Array.isArray(data)) data.map(self.processTweet, self);
